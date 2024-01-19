@@ -170,7 +170,7 @@ Save like PS2 and stuffs
 Default locations is "savedata/"
 */
 
-#define K_SAVELOAD_FOLDER_PATH "savedata/";
+#define K_SAVEDATA_FOLDER_PATH "savedata/";
 class SaveData {
 };
 void Save(std::string arg_filename) {
