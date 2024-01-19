@@ -95,6 +95,7 @@ float Normalize(float arg_value, float arg_start, float arg_end) {
 /*
 RENDER
 */
+#define K_IMAGE_FOLDER_PATH "images/";
 void DrawImage() {
 }
 
@@ -105,23 +106,32 @@ void LoadAnimationTimeline() {
 }
 
 /*
-AUDIO
+AUDIO & VIDEO
 Playing audio and stuffs
 Like FMOD and WWise
 */
+#define K_AUDIO_FOLDER_PATH "audios/";
+#define K_VIDEO_FOLDER_PATH "videos/";
 struct AudioFile {
 };
 struct AudioStream {
 };
 struct AudioMixer {
 };
-void PlayAudio(char arg_path[]) {
+struct VideoStream {
+};
+void PlayAudio(std::string arg_filename) {
+	// Check for extension exception MP3, WAV, OGG, OPUS, M4A
+}
+void PlayVideo(std::string arg_filename) {
+	// Check for extension exception MP4, MOV
 }
 
 /*
 GUI
 Builtin GUI system
 */
+#define K_GUI_FOLDER_PATH "gui/";
 void LoadGUI() {
 }
 
@@ -152,6 +162,25 @@ public:
 	// Mouse button back (advanced mouse device)
 	const int MOUSE_BUTTON_BACK = 6;
 };
+
+/*
+SAVEDATA - SAVELOAD
+Save like PS2 and stuffs
+Default locations is "savedata/"
+*/
+
+#define K_SAVELOAD_FOLDER_PATH "savedata/";
+class SaveData {
+};
+void Save(std::string arg_filename) {
+}
+void Load(std::string arg_filepath) {
+}
+void ConvertSaveDataToCSV() {
+}
+void ConvertSaveDataToXML() {
+}
+
 
 /*
 GAME STUFFS
