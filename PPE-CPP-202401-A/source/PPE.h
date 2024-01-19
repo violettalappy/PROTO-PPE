@@ -146,22 +146,35 @@ INPUT CONTROLLER
 Keyboard, Gamepad, Mouse
 */
 #define K_INPUT_FOLDER_PATH "controllerconfig/";
+bool IsInputDown() {
+	return true;
+}
+bool IsInputHold() {
+	return true;
+}
+bool IsInputUp() {
+	return true;
+}
 class KMouseButton {
 public:
 	// Mouse button left
-	const int MOUSE_BUTTON_LEFT = 0;
+	const int Left = 0;
 	// Mouse button right
-	const int MOUSE_BUTTON_RIGHT = 1;
+	const int Right = 1;
 	// Mouse button middle (pressed wheel)
-	const int MOUSE_BUTTON_MIDDLE = 2;
+	const int Middle = 2;
 	// Mouse button side (advanced mouse device)
-	const int MOUSE_BUTTON_SIDE = 3;
+	const int Side = 3;
 	// Mouse button extra (advanced mouse device)
-	const int MOUSE_BUTTON_EXTRA = 4;
+	const int Extra = 4;
 	// Mouse button forward (advanced mouse device)
-	const int MOUSE_BUTTON_FORWARD = 5;
+	const int Forward = 5;
 	// Mouse button back (advanced mouse device)
-	const int MOUSE_BUTTON_BACK = 6;
+	const int Back = 6;
+};
+class KKeyboard {
+};
+class KGamePad {
 };
 
 /*
