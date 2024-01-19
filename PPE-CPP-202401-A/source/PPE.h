@@ -13,19 +13,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+/*
+Program Performer Engine (PPE)
+Single header file for most needs
+*/
+
 #include <iostream>
 #include <string>
 
 // Version Naming Standard as following
 // major.minor.patch
 // EXAMPLE: 2.0.0, 3.1.12
-#define PPE_VERSION "0.0.0"
-#define PPE_VERSION_MAJOR 0
-#define PPE_VERSION_MINOR 0
-#define PPE_VERSION_PATCH 0
+#define K_PPE_VERSION "0.0.0"
+#define K_PPE_VERSION_MAJOR 0
+#define K_PPE_VERSION_MINOR 0
+#define K_PPE_VERSION_PATCH 0
 
 std::string GetVersionName() {
-	return PPE_VERSION;
+	return K_PPE_VERSION;
 }
 
 /*
@@ -123,13 +128,14 @@ void LoadGUI() {
 /*
 TWEEN
 */
-void Tween(){ }
+void Tween() {
+}
 
 /*
 CONTROLLER
 Keyboard, Gamepad, Mouse
 */
-class MouseButton {
+class KMouseButton {
 public:
 	// Mouse button left
 	const int MOUSE_BUTTON_LEFT = 0;
@@ -148,26 +154,98 @@ public:
 };
 
 /*
-UTILITIES
+GAME STUFFS
 Useful utilities for common problems
 */
-class ProgramValue {
-	//value
-	//default
-	//min
-	//max
-	//systemMin
-	//systemMax
+class ProgramValueRange {
+	ProgramValueRange(float arg_value, float arg_defaultValue, float arg_min, float arg_max, float arg_systemMin = FLT_MIN, float arg_systemMax = FLT_MAX) {
+		value = arg_value;
+		defaultValue = arg_defaultValue;
+		min = arg_min;
+		max = arg_max;
+		systemMin = arg_systemMin;
+		systemMax = arg_systemMax;
+	}
+public:
+	float value = 0;
+	float defaultValue = 0;
+	float min = 0;
+	float max = 0;
+	float systemMin = FLT_MIN;
+	float systemMax = FLT_MAX;
+public:
+	void SetValue() {
+	}
+	void SetDefaultValue() {
+	}
+	void SetMin() {
+	}
+	void SetMax() {
+	}
+	void SetSystemMin() {
+	}
+	void SetSystemMax() {
+	}
 };
-class GameValue {
-	//value
-	//default
-	//min
-	//max
-	//restraintMin
-	//restraintMax
-	//limitMin
-	//limitMax
-	//systemMin
-	//systemMax
+
+// Also has percentage modifier
+class GameValueRange {
+	GameValueRange(float arg_value, float arg_defaultValue, float arg_min, float arg_max, float arg_systemMin = FLT_MIN, float arg_systemMax = FLT_MAX) {
+		_value = arg_value;
+		_defaultValue = arg_defaultValue;
+		_valueMin = arg_min;
+		_valueMax = arg_max;
+		_systemMin = arg_systemMin;
+		_systemMax = arg_systemMax;
+	}
+private:
+	float _value = 0.0f;
+	float _defaultValue = 0.0f;
+	float _valueMin = 0.0f;
+	float _valueMax = 0.0f;
+	float _systemMin = FLT_MIN;
+	float _systemMax = FLT_MAX;
+public:
+	float GetValue() {
+		return _value;
+	}
+	float GetDefaultValue() {
+		return _defaultValue;
+	}
+	float GetValueMin() {
+		return _valueMin;
+	}
+	float GetValueMax() {
+		return _valueMax;
+	}
+	float GetSystemMin() {
+		return _systemMin;
+	}
+	float GetSystemMax() {
+		return _systemMax;
+	}
+	void SetValue(float arg_value) {
+		_value = arg_value;
+	}
+	void SetDefaultValue(float arg_value) {
+		_defaultValue = arg_value;
+	}
+	void SetValueMin(float arg_value) {
+		_valueMin = arg_value;
+	}
+	void SetValueMax(float arg_value) {
+		_valueMax = arg_value;
+	}
+	void SetRestraintMin() {
+	}
+	void SetRestraintMax() {
+	}
+	void SetLimitMin() {
+	}
+	void SetLimitMax() {
+	}
+	void SetSystemMin() {
+	}
+	void SetSystemMax() {
+	}
 };
