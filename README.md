@@ -1,2 +1,2 @@
 # PROTO-PPE
-Program Performer Engine
+Prototype of Program Performer Engine
