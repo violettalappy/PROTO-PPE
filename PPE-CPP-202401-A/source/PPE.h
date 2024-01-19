@@ -28,3 +28,6 @@ limitations under the License.
 std::string GetVersionName() {
 	return PPE_VERSION;
 }
+
+void DrawImage() {
+}
