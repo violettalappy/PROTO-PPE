@@ -50,7 +50,7 @@ MATH
 /*
 TRANSFORM
 */
-struct Vec3 {
+struct Vector3 {
 	float x;
 	float y;
 	float z;
@@ -76,6 +76,12 @@ float Lerp(float arg_start, float arg_end, float arg_amount) {
 	return result;
 }
 
+// TODO Remember to add logic that normalize input value to 0 or 1
+float Normalize01(float arg_value) {
+	float result = 0;
+	return result;
+}
+
 float Normalize(float arg_value, float arg_start, float arg_end) {
 	float result = (arg_value - arg_start) / (arg_end - arg_start);
 	return result;
@@ -88,10 +94,22 @@ void DrawImage() {
 }
 
 /*
+ANIMATION TIMELINE
+*/
+void LoadAnimationTimeline() {
+}
+
+/*
 AUDIO
 Playing audio and stuffs
 Like FMOD and WWise
 */
+struct AudioFile {
+};
+struct AudioStream {
+};
+struct AudioMixer {
+};
 void PlayAudio(char arg_path[]) {
 }
 
@@ -101,6 +119,33 @@ Builtin GUI system
 */
 void LoadGUI() {
 }
+
+/*
+TWEEN
+*/
+void Tween(){ }
+
+/*
+CONTROLLER
+Keyboard, Gamepad, Mouse
+*/
+class MouseButton {
+public:
+	// Mouse button left
+	const int MOUSE_BUTTON_LEFT = 0;
+	// Mouse button right
+	const int MOUSE_BUTTON_RIGHT = 1;
+	// Mouse button middle (pressed wheel)
+	const int MOUSE_BUTTON_MIDDLE = 2;
+	// Mouse button side (advanced mouse device)
+	const int MOUSE_BUTTON_SIDE = 3;
+	// Mouse button extra (advanced mouse device)
+	const int MOUSE_BUTTON_EXTRA = 4;
+	// Mouse button forward (advanced mouse device)
+	const int MOUSE_BUTTON_FORWARD = 5;
+	// Mouse button back (advanced mouse device)
+	const int MOUSE_BUTTON_BACK = 6;
+};
 
 /*
 UTILITIES
