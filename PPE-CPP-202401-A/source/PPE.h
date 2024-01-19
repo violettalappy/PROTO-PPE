@@ -142,9 +142,10 @@ void Tween() {
 }
 
 /*
-CONTROLLER
+INPUT CONTROLLER
 Keyboard, Gamepad, Mouse
 */
+#define K_INPUT_FOLDER_PATH "controllerconfig/";
 class KMouseButton {
 public:
 	// Mouse button left
@@ -180,7 +181,6 @@ void ConvertSaveDataToCSV() {
 }
 void ConvertSaveDataToXML() {
 }
-
 
 /*
 GAME STUFFS

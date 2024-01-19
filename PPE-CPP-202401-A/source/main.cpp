@@ -18,6 +18,18 @@ limitations under the License.
 using namespace std;
 
 int main() {
-	std::cout << "Program Performer Engine: INITIALIZE" << std::endl;
+	std::cout << "Program Performer Engine" << std::endl;
+	
+	std::cout << "> PPE: INIT" << std::endl;
+	std::cout << "> PPE: ProgramInput" << std::endl;
+
+	std::cout << "> PPE: UPDATE" << std::endl;
+	std::cout << "> PPE: ProgramInput" << std::endl;
+	std::cout << "> PPE: ProgramGUI" << std::endl;
+	std::cout << "> PPE: ProgramGraphic" << std::endl;
+
+	std::cout << "> PPE: FREE MEMORY" << std::endl;
+
+	std::cout << "> PPE: SHUTDOWN" << std::endl;
 	return 0;
 }
