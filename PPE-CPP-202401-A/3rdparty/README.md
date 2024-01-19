@@ -3,6 +3,7 @@
 # Packages
 
 - webgpu
+- dearIMGUI
 - rapidXML, rapidCSV, rapidYAML, rapidJSON
 - gltfImport
 
