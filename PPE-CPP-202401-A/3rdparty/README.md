@@ -1,22 +1,16 @@
-# Introduction
+# 3RDPARTY
 
-This is very important
+# Packages
 
-See how the project setup via CMakeLists.txt
+- webgpu
+- rapidXML, rapidCSV, rapidYAML, rapidJSON
+- gltfImport
 
 # Setup
 
-This is very important
+All have been built, just use binary when needed to
 
-## Requirements
-- CMake 12
-- C++ 14
 
-## 3RDPARTY Libraries
 
-All has been included necessary for building application
-
-- fmt
-- webgpu
 
 
