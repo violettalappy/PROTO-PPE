@@ -1,6 +1,8 @@
 # Introduction
 Welcome to Program Performer Engine (PPE)
 
+You are reading Quick Start Guide Manual (QSGMANUAL.md)
+
 # References
 https://en.wikipedia.org/wiki/Quickstart_guide
 
