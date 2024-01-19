@@ -4,8 +4,15 @@
 
 # Features
 
-- Savedata
-- Network
-- webgpu
-- Standard Rendering & Shader System
+## PRIORITY
+- Resource system like MONOGAME, allow encryption
+- One Standard Rendering & Shader System, allow user custom shader
 - Better Audio System
+- Tween
+- Unified GUI System (Inspired by XML & HTML)
+- Builtin IDE Editor & Debugger
+
+## Nice to have
+- webgpu
+- PS2 Memory Savedata Style
+- Network
