@@ -94,19 +94,24 @@ class ProgramConfig {
 public:
 	ProgramConfig();
 	~ProgramConfig();
+private:
+	bool _isUpdateWindowResizeConstant = false;
 public:
 	void Save();
 	void Load();
 public:
-/* 
-PROGRAM
-For program application
-*/
+	/*
+	PROGRAM
+	For program application
+	*/
 	void SetProgramTitle(char arg_title[]);
-/* 
-SYSTEM 
-For application engine system
-*/
+	/*
+	SYSTEM
+	For application engine system
+	*/
+	void SetUpdateWindowResizeStatus(bool arg_status) {
+		_isUpdateWindowResizeConstant = arg_status;
+	}
 	void SetFPS(KFPS arg_fps);
 	/* DISPLAY */
 	void SetScreenSize(KScreenSize arg_screenSize);
@@ -124,6 +129,11 @@ ProgramConfig::ProgramConfig() {
 	// use default settings, unable to load config for many reasons
 	else {
 		SetProgramTitle("Please rename this application name !!");
+
+		SetUpdateWindowResizeStatus(false);
+		SetFPS(KFPS::K_60);
+		//SetFPS(60);
+
 		SetScreenSize(KScreenSize::K_800x600());
 		//SetScreenWidth(KScreenSize::K_800x600);
 		//SetScreenHeight(KScreenSize::K_800x600);
