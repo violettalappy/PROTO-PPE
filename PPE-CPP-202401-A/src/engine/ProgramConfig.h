@@ -58,6 +58,33 @@ public:
 	}
 };
 
+class KFPS {
+public:
+	KFPS(int arg_fps) {
+		_fps = arg_fps;
+	}
+private:
+	int _fps = 24;
+	//Available refresh rates for usage
+	//const int _refreshRates[] = [24, 30, 50, 60, 120, 240];
+public:
+	int GetValue() {
+		return _fps;
+	}
+	/*int[] GetAvailableList() {
+		return _refreshRates;
+	}*/
+	KFPS K_24() {
+		return KFPS(24);
+	}
+	KFPS K_30() {
+		return KFPS(30);
+	}
+	KFPS K_60() {
+		return KFPS(60);
+	}
+};
+
 #define K_PROGRAMCONFIG_FOLDER_PATH "configs/"
 #define K_PROGRAMCONFIG_FILENAME "config.txt"
 #define K_PROGRAMCONFIG_FILENAME_TXT "config.txt"
@@ -70,15 +97,39 @@ public:
 public:
 	void Save();
 	void Load();
+public:
+/* 
+PROGRAM
+For program application
+*/
 	void SetProgramTitle(char arg_title[]);
+/* 
+SYSTEM 
+For application engine system
+*/
+	void SetFPS(KFPS arg_fps);
+	/* DISPLAY */
 	void SetScreenSize(KScreenSize arg_screenSize);
+	void SetScreenWidth(int arg_width);
+	void SetScreenHeight(int arg_height);
 	void SetRefreshRate(KRefreshRate arg_refreshRate);
+	void SetRefreshRate(int arg_refreshRate);
 };
 
 ProgramConfig::ProgramConfig() {
-}
-
-ProgramConfig::~ProgramConfig() {
+	bool isLoadConfigSuccess = false;
+	if (isLoadConfigSuccess) {
+	}
+	// !! Switch to fallback emergency state
+	// use default settings, unable to load config for many reasons
+	else {
+		SetProgramTitle("Please rename this application name !!");
+		SetScreenSize(KScreenSize::K_800x600());
+		//SetScreenWidth(KScreenSize::K_800x600);
+		//SetScreenHeight(KScreenSize::K_800x600);
+		SetRefreshRate(KRefreshRate::K_60);
+		//SetRefreshRate(60);
+	}
 }
 
 #endif // !PROGRAMCONFIG_H
