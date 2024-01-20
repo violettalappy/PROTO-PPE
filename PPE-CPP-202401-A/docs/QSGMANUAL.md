@@ -28,3 +28,12 @@ cd project
 - Open CMakeLists.txt, 3rdparty.txt, PPE.txt, 
 - Open Program.txt (This is yours own code, add when needed)
 - There are options that you might want if needed
+
+# API
+
+- ProgramObject (Operate in kernal main core loop)
+
+In any type of program you are developing, you should have a ProgramObject to work at, to manage all subsystem that you need to access
+
+- AudioProgramObject (Inherit from ProgramObject)
+- GameProgramObject (Inherit from ProgramObject)
