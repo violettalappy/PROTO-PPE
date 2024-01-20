@@ -2,6 +2,7 @@
 
 # Packages
 
+- glfw 3.3.9
 - webgpu
 - dearIMGUI
 - rapidXML, rapidCSV, rapidYAML, rapidJSON
