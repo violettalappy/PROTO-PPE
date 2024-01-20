@@ -17,7 +17,9 @@ limitations under the License.
 
 using namespace std;
 
-int main() {
+#define K_PPE_VERSION "0.0.0"
+
+int main(int argc, char* argv[]) {
 	std::cout << "Program Performer Engine" << std::endl;
 	
 	std::cout << "> PPE: INIT" << std::endl;
