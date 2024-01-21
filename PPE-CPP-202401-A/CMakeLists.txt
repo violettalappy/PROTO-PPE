@@ -11,9 +11,32 @@ endif()
 
 # Define project name
 project ("app")
-
+# set(SOURCEFILE_COMMON 
+# "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h" 
+# "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" 
+# )
+# file(GLOB_RECURSE SOURCEFILE_ALL CONFIGURE_DEPENDS
+# ${SOURCEFILE_COMMON}
+# )
 # Add source to this project's executable.
-add_executable (app "src/main.cpp" "src/PPE.h")
+add_executable (app "src/main.cpp" "src/ProgramContext.h")
+
+# Linking include directories
+set(1STPARTY
+"${CMAKE_CURRENT_SOURCE_DIR}/src/"
+)
+set(3RDPARTY
+)
+target_include_directories(${PROJECT_NAME} PUBLIC ${1STPARTY} PUBLIC ${3RDPARTY})
+
+# Linking libraries
+set(1STPARTY_LIB
+)
+set(3RDPARTY_LIB
+winmm.lib
+opengl32.lib
+)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${1STPARTY_LIB} PRIVATE ${3RDPARTY_LIB})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET app PROPERTY CXX_STANDARD 14)
