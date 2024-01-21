@@ -86,7 +86,7 @@ public:
 };
 
 #define K_PROGRAMCONFIG_FOLDER_PATH "configs/"
-#define K_PROGRAMCONFIG_FILENAME "config"
+#define K_PROGRAMCONFIG_FILENAME "program"
 
 class ProgramConfig {
 public:
@@ -95,13 +95,14 @@ public:
 private:
 	bool _isUpdateWindowResizeConstant = false;
 public:
+	void Apply();
+	void ResetToDefault();
 	void SaveXML();
 	void LoadXML();
 public:
 	/* PROGRAM */
 	// For program application
 	void SetProgramTitle(char arg_title[]);
-
 	/* SYSTEM */
 	// For application engine system
 	void SetUpdateWindowResizeConstantStatus(bool arg_status) {
@@ -109,19 +110,29 @@ public:
 	}
 	void SetFPS(KFPS arg_fps);
 	void SetFPS(int arg_fps);
-	
 	/* DISPLAY */
 	// Display monitor settings
+	void SetWindowMode(bool arg_status);
 	void SetScreenResolution(KScreenResolution arg_screenSize);
 	void SetScreenWidth(int arg_width);
 	void SetScreenHeight(int arg_height);
 	void SetRefreshRate(KRefreshRate arg_refreshRate);
 	void SetRefreshRate(int arg_refreshRate);
 	void SetVSync(bool arg_status);
-
 	/* GRAPHICS */
 	// Graphics settings
+	void SetParticleQuality(bool arg_status);
+	void SetMotionBlurStatus(bool arg_status);
+	void SetViewDistance(bool arg_status);
 	void SetTextureQuality(bool arg_status);
+	void SetShadowQuality(bool arg_status);
+	void SetShadowResolution(bool arg_status);
+	void SetAntiAliasing(bool arg_status);
+	/* AUDIO */
+	// Audio settings
+	void SetMasterMixerLevel(float arg_value); // default - 0, max - 1
+	void SetMusicMixerLevel(float arg_value); // default - 0, max - 1
+	void SetSFXMixerLevel(float arg_value); // default - 0, max - 1
 };
 
 ProgramConfig::ProgramConfig() {
@@ -131,7 +142,7 @@ ProgramConfig::ProgramConfig() {
 	// !! Switch to fallback emergency state
 	// use default settings, unable to load config for many reasons
 	else {
-		SetProgramTitle("Please rename this application name !!");
+		SetProgramTitle("PLEASE RENAME IF SEE THIS !!");
 
 		SetUpdateWindowResizeStatus(false);
 		SetFPS(KFPS::K_60);
