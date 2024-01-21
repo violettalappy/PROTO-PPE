@@ -15,20 +15,21 @@ limitations under the License.
 
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <PPE/PPE_min.h>
 
 using namespace std;
 
 #define K_PPE_VERSION "0.0.0"
 
 int main(int argc, char* argv[]) {
-	std::cout << "Program Performer Engine" << std::endl;
-	
-	std::cout << "> PPE: INIT" << std::endl;
+	PPE::Log("PPE", "Program Performer Engine starts");
+
+	PPE::Log("PPE", "init phase");
 	if (!glfwInit()) {
 		std::cerr << "Could not initialize GLFW!" << std::endl;
 		return 1;
 	}
-	std::cout << "> PPE: GLFW init success" << std::endl;
+	PPE::Log("GLFW", "init success");
 
 	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
 	if (!window) {
@@ -36,18 +37,20 @@ int main(int argc, char* argv[]) {
 		glfwTerminate();
 		return 1;
 	}
-	std::cout << "> PPE: GLFW create window success" << std::endl;
+	PPE::Log("GLFW", "create window success");
 
 
-	std::cout << "> PPE: UPDATE" << std::endl;
+	PPE::Log("PPE", "update phase");
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 	}
 
-	std::cout << "> PPE: FREE MEMORY" << std::endl;
+	PPE::Log("PPE", "termination phase");
 	glfwDestroyWindow(window);
 	glfwTerminate();
+	PPE::Log("PPE", "terminate success");
 
-	std::cout << "> PPE: SHUTDOWN" << std::endl;
+	PPE::Log("PPE", "shutdown phase");
+	PPE::Log("PPE", "shutdown success");
 	return 0;
 }
