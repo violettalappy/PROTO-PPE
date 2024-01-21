@@ -22,7 +22,7 @@ project ("app")
 # ${SOURCEFILE_COMMON}
 # )
 # Add source to this project's executable.
-add_executable (app "src/main.cpp" "src/ProgramContext.h")
+add_executable (app "src/main.cpp" "src/ProgramContext.h" "src/PPE/PPE_min.h")
 
 # Linking include directories
 set(1STPARTY
