@@ -14,6 +14,7 @@ limitations under the License.
 */
 
 #include <iostream>
+#include <GLFW/glfw3.h>
 
 using namespace std;
 
@@ -23,14 +24,29 @@ int main(int argc, char* argv[]) {
 	std::cout << "Program Performer Engine" << std::endl;
 	
 	std::cout << "> PPE: INIT" << std::endl;
-	std::cout << "> PPE: ProgramInput" << std::endl;
+	if (!glfwInit()) {
+		std::cerr << "Could not initialize GLFW!" << std::endl;
+		return 1;
+	}
+	std::cout << "> PPE: GLFW init success" << std::endl;
+
+	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
+	if (!window) {
+		std::cerr << "Could not open window!" << std::endl;
+		glfwTerminate();
+		return 1;
+	}
+	std::cout << "> PPE: GLFW create window success" << std::endl;
+
 
 	std::cout << "> PPE: UPDATE" << std::endl;
-	std::cout << "> PPE: ProgramInput" << std::endl;
-	std::cout << "> PPE: ProgramGUI" << std::endl;
-	std::cout << "> PPE: ProgramGraphic" << std::endl;
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+	}
 
 	std::cout << "> PPE: FREE MEMORY" << std::endl;
+	glfwDestroyWindow(window);
+	glfwTerminate();
 
 	std::cout << "> PPE: SHUTDOWN" << std::endl;
 	return 0;
