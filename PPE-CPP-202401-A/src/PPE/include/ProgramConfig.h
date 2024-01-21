@@ -1,9 +1,9 @@
 #ifndef PROGRAMCONFIG_H
 #define PROGRAMCONFIG_H
 
-class KScreenSize {
+class KScreenResolution {
 public:
-	KScreenSize(int arg_width, int arg_height) {
+	KScreenResolution(int arg_width, int arg_height) {
 		_width = arg_width;
 		_height = arg_height;
 	}
@@ -17,17 +17,17 @@ public:
 	int GetHeight() {
 		return _height;
 	}
-	const KScreenSize K_640x480() {
-		return KScreenSize(640, 480);
+	const KScreenResolution K_640x480() {
+		return KScreenResolution(640, 480);
 	}
-	const KScreenSize K_800x600() {
-		return KScreenSize(800, 600);
+	const KScreenResolution K_800x600() {
+		return KScreenResolution(800, 600);
 	}
-	const KScreenSize K_1280x720() {
-		return KScreenSize(1280, 720);
+	const KScreenResolution K_1280x720() {
+		return KScreenResolution(1280, 720);
 	}
-	const KScreenSize K_1920x1080() {
-		return KScreenSize(1920, 1080);
+	const KScreenResolution K_1920x1080() {
+		return KScreenResolution(1920, 1080);
 	}
 };
 
@@ -86,9 +86,7 @@ public:
 };
 
 #define K_PROGRAMCONFIG_FOLDER_PATH "configs/"
-#define K_PROGRAMCONFIG_FILENAME "config.txt"
-#define K_PROGRAMCONFIG_FILENAME_TXT "config.txt"
-#define K_PROGRAMCONFIG_FILENAME_CSV "config.csv"
+#define K_PROGRAMCONFIG_FILENAME "config"
 
 class ProgramConfig {
 public:
@@ -97,28 +95,33 @@ public:
 private:
 	bool _isUpdateWindowResizeConstant = false;
 public:
-	void Save();
-	void Load();
+	void SaveXML();
+	void LoadXML();
 public:
-	/*
-	PROGRAM
-	For program application
-	*/
+	/* PROGRAM */
+	// For program application
 	void SetProgramTitle(char arg_title[]);
-	/*
-	SYSTEM
-	For application engine system
-	*/
-	void SetUpdateWindowResizeStatus(bool arg_status) {
+
+	/* SYSTEM */
+	// For application engine system
+	void SetUpdateWindowResizeConstantStatus(bool arg_status) {
 		_isUpdateWindowResizeConstant = arg_status;
 	}
 	void SetFPS(KFPS arg_fps);
+	void SetFPS(int arg_fps);
+	
 	/* DISPLAY */
-	void SetScreenSize(KScreenSize arg_screenSize);
+	// Display monitor settings
+	void SetScreenResolution(KScreenResolution arg_screenSize);
 	void SetScreenWidth(int arg_width);
 	void SetScreenHeight(int arg_height);
 	void SetRefreshRate(KRefreshRate arg_refreshRate);
 	void SetRefreshRate(int arg_refreshRate);
+	void SetVSync(bool arg_status);
+
+	/* GRAPHICS */
+	// Graphics settings
+	void SetTextureQuality(bool arg_status);
 };
 
 ProgramConfig::ProgramConfig() {
@@ -134,9 +137,9 @@ ProgramConfig::ProgramConfig() {
 		SetFPS(KFPS::K_60);
 		//SetFPS(60);
 
-		SetScreenSize(KScreenSize::K_800x600());
-		//SetScreenWidth(KScreenSize::K_800x600);
-		//SetScreenHeight(KScreenSize::K_800x600);
+		SetScreenResolution(KScreenResolution::K_800x600());
+		//SetScreenWidth(KScreenResolution::K_800x600);
+		//SetScreenHeight(KScreenResolution::K_800x600);
 		SetRefreshRate(KRefreshRate::K_60);
 		//SetRefreshRate(60);
 	}
