@@ -26,6 +26,7 @@ set(1STPARTY
 "${CMAKE_CURRENT_SOURCE_DIR}/src/"
 )
 set(3RDPARTY
+"${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/"
 )
 target_include_directories(${PROJECT_NAME} PUBLIC ${1STPARTY} PUBLIC ${3RDPARTY})
 
