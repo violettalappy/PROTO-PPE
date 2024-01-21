@@ -9,6 +9,9 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
+# Enable options that you want
+# option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
 # Define project name
 project ("app")
 # set(SOURCEFILE_COMMON 
@@ -26,7 +29,7 @@ set(1STPARTY
 "${CMAKE_CURRENT_SOURCE_DIR}/src/"
 )
 set(3RDPARTY
-"${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/"
+#"${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/"
 )
 target_include_directories(${PROJECT_NAME} PUBLIC ${1STPARTY} PUBLIC ${3RDPARTY})
 
@@ -37,7 +40,15 @@ set(3RDPARTY_LIB
 winmm.lib
 opengl32.lib
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE ${1STPARTY_LIB} PRIVATE ${3RDPARTY_LIB})
+
+# 3RDPARTY Libraries
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw")
+
+target_link_libraries(${PROJECT_NAME} 
+PRIVATE ${1STPARTY_LIB} 
+PRIVATE ${3RDPARTY_LIB}
+PRIVATE glfw
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET app PROPERTY CXX_STANDARD 14)
