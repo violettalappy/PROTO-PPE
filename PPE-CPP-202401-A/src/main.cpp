@@ -15,41 +15,38 @@ limitations under the License.
 
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include <PPE/PPE_min.h>
+#include <P3E/P3E_min.h>
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	PPE::Log("PPE", "Program Performer Engine starts");
-	PPE::LogInfo();
-	
-	PPE::Log("PPE", "init phase");
-	PPE_ProgramConfig programConfig = PPE_ProgramConfig();
+	P3E::Init();
+	P3E::ProgramConfig programConfig = P3E::ProgramConfig();
 	if (!glfwInit()) {
 		std::cerr << "Could not initialize GLFW!" << std::endl;
 		return 1;
 	}
-	PPE::Log("GLFW", "init success");
-	GLFWwindow* window = glfwCreateWindow(programConfig.GetScreenWidth(), programConfig.GetScreenHeight(), programConfig.GetProgramTitle().c_str(), NULL, NULL);
+	P3E::Log("GLFW", "init success");
+	GLFWwindow* window = glfwCreateWindow(programConfig.GetScreenWidth(), programConfig.GetScreenHeight(), programConfig.GetProgramFullTitle().c_str(), NULL, NULL);
 	if (!window) {
 		std::cerr << "Could not open window!" << std::endl;
 		glfwTerminate();
 		return 1;
 	}
-	PPE::Log("GLFW", "create window success");
+	P3E::Log("GLFW", "create window success");
 
-	PPE::Log("PPE", "update phase");
+	P3E::Log(P3E_NAMEOF(P3E), "update phase");
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 	}
 
-	PPE::Log("PPE", "termination phase");
+	P3E::Log(P3E_NAMEOF(P3E), "termination phase");
 	glfwDestroyWindow(window);
 	glfwTerminate();
-	PPE::Log("PPE", "terminate success");
+	P3E::Log(P3E_NAMEOF(P3E), "terminate success");
 
-	PPE::Log("PPE", "shutdown phase");
-	PPE::Log("PPE", "shutdown success");
+	P3E::Log(P3E_NAMEOF(P3E), "shutdown phase");
+	P3E::Log(P3E_NAMEOF(P3E), "shutdown success");
 
 	return 0;
 }
