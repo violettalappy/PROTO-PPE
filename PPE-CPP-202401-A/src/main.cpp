@@ -19,26 +19,24 @@ limitations under the License.
 
 using namespace std;
 
-#define K_PPE_VERSION "0.0.0"
-
 int main(int argc, char* argv[]) {
 	PPE::Log("PPE", "Program Performer Engine starts");
-
+	PPE::LogInfo();
+	
 	PPE::Log("PPE", "init phase");
+	PPE_ProgramConfig programConfig = PPE_ProgramConfig();
 	if (!glfwInit()) {
 		std::cerr << "Could not initialize GLFW!" << std::endl;
 		return 1;
 	}
 	PPE::Log("GLFW", "init success");
-
-	GLFWwindow* window = glfwCreateWindow(640, 480, "Learn WebGPU", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(programConfig.GetScreenWidth(), programConfig.GetScreenHeight(), programConfig.GetProgramTitle().c_str(), NULL, NULL);
 	if (!window) {
 		std::cerr << "Could not open window!" << std::endl;
 		glfwTerminate();
 		return 1;
 	}
 	PPE::Log("GLFW", "create window success");
-
 
 	PPE::Log("PPE", "update phase");
 	while (!glfwWindowShouldClose(window)) {
@@ -52,5 +50,6 @@ int main(int argc, char* argv[]) {
 
 	PPE::Log("PPE", "shutdown phase");
 	PPE::Log("PPE", "shutdown success");
+
 	return 0;
 }
