@@ -88,6 +88,17 @@ namespace P3E {
         std::cout << "> ERROR: " << arg_title << ": " << arg_msg << std::endl;
     }
 
+    class Math {
+    public:
+        const float K_PI = 3.14159265358979323846f;
+        const float K_EPSILON = 0.000001f;
+        const float K_DEG2RAD = PI / 180.0f;
+        const float K_RAD2DEG = 180.0f / PI;
+    public:
+        static float mToMM(float arg_mile){ }
+        static float kmhToMPH(float arg_kmh){ }
+    };
+
     /* PROGRAMCONFIG */
     // ? Customize how program work
     class ProgramConfig {
