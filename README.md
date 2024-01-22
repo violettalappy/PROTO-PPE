@@ -1,2 +1,2 @@
-# PROTO-PPE
-Prototype of Program Performer Engine
+# PROTO-P3E
+Prototype of Priority Performer Program Engine
