@@ -1,26 +1,24 @@
 #ifndef PROGRAMCONTEXT_H
 #define PROGRAMCONTEXT_H
 
+#include <iostream>
+#include <GLFW/glfw3.h>
+#include <P3E/P3E_min.h>
+
 class ProgramContext {
 public:
-	ProgramContext(){ }
-	~ProgramContext(){}
+    ProgramContext();
+    ~ProgramContext();
+private:
+    P3E::ProgramConfig _programConfig;
 public:
-	/* ENGINE DEVELOPMENT */
-	// For engine use only
-	void Run();
-	
-	/* COMMON DEVELOPMENT */
-	// Place all your development here, useful for game development and other things
-	void Init();
-	void Start();
-	void Update(float arg_dt, float arg_unscaledDT);
-	void Render();
-
-	/* AUDIO DEVELOPMENT */
-	void PrepareToPlay(double arg_sampleRate, int arg_samplesPerBlock);
-	void ReleaseResources();
-	void ProcessBlock(double arg_bufferSamples, float arg_midiMSG);
+    P3E::ProgramConfig GetProgramConfig() {
+        return _programConfig;
+    }
+    void Init();
+    void Run();
+    void Close();
+    // void AddWindow();
 };
 
 #endif // !PROGRAMCONTEXT_H
