@@ -13,7 +13,10 @@ endif()
 # option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 # Define project name
-project ("app")
+project ("app" 
+VERSION 0.0.0 
+LANGUAGES CXX C)
+
 # set(SOURCEFILE_COMMON 
 # "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h" 
 # "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" 
@@ -50,8 +53,29 @@ PRIVATE ${3RDPARTY_LIB}
 PRIVATE glfw
 )
 
+# TODO: why the heck does it need to specify if CMake is greater than 3.12
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET app PROPERTY CXX_STANDARD 20)
+endif()
+
+set_target_properties(app PROPERTIES
+    CXX_STANDARD 20
+    CXX_EXTENSIONS OFF
+    # NOTE: Before release to public, switch ON and resolve any warning error just to play nicely with compiler
+    # For development, just default it to OFF, it will get in the way
+    COMPILE_WARNING_AS_ERROR OFF
+)
+
+if (MSVC)
+    target_compile_options(app PRIVATE /W4)
+else()
+    target_compile_options(app PRIVATE -Wall -Wextra -pedantic)
+endif()
+
+if(XCODE)
+    set_target_properties(app PROPERTIES
+        XCODE_GENERATE_SCHEME ON
+        XCODE_SCHEME_ENABLE_GPU_FRAME_CAPTURE_MODE "Metal")
 endif()
 
 # TODO: Add tests and install targets if needed.
