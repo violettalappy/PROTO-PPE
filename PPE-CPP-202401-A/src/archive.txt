@@ -75,3 +75,19 @@ public:
             return true;
         }
     };
+
+	class ProgramObject {
+public:
+	ProgramObject();
+	~ProgramObject();
+public:
+	void GetProgramConfig();
+	void GetInputManager();
+	void GetAudioManager();
+	void GetRenderManager();
+	void GetQueueManager();
+public:
+	void Init();
+	void Start();
+	void Update();
+};
