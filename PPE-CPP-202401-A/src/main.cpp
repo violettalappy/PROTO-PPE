@@ -18,28 +18,7 @@ limitations under the License.
 int main(int argc, char* argv[]) {
     ProgramContext program;
     program.Init();
-
-    if (!glfwInit()) {
-        std::cerr << "Could not initialize GLFW!" << std::endl;
-        return 1;
-    }
-    P3E::Logger::Info("init success !!", P3E::KLoggerOwner::GLFW);
-    GLFWwindow* window = glfwCreateWindow(program.GetProgramConfig().GetScreenWidth(), program.GetProgramConfig().GetScreenHeight(), program.GetProgramConfig().GetProgramFullTitle().c_str(), NULL, NULL);
-    if (!window) {
-        std::cerr << "Could not open window!" << std::endl;
-        glfwTerminate();
-        return 1;
-    }
-    P3E::Logger::Info("create window success !!", P3E::KLoggerOwner::GLFW);
-
-    while (!glfwWindowShouldClose(window)) {
-        //program.Run();
-        glfwPollEvents();
-    }
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
-
+    program.Run();
     program.Close();
     return 0;
 }
