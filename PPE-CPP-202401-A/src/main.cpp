@@ -20,33 +20,37 @@ limitations under the License.
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	P3E::Init();
+	P3E::Logger::Info("INIT STAGE", P3E::KLoggerOwner::Program);
+
+	P3E::P3E_Init();
 	P3E::ProgramConfig programConfig = P3E::ProgramConfig();
 	if (!glfwInit()) {
 		std::cerr << "Could not initialize GLFW!" << std::endl;
 		return 1;
 	}
-	P3E::Log("GLFW", "init success");
+	P3E::Logger::Info("init success !!", P3E::KLoggerOwner::GLFW);
 	GLFWwindow* window = glfwCreateWindow(programConfig.GetScreenWidth(), programConfig.GetScreenHeight(), programConfig.GetProgramFullTitle().c_str(), NULL, NULL);
 	if (!window) {
 		std::cerr << "Could not open window!" << std::endl;
 		glfwTerminate();
 		return 1;
 	}
-	P3E::Log("GLFW", "create window success");
+	P3E::Logger::Info("create window success !!", P3E::KLoggerOwner::GLFW);
 
-	P3E::Log(P3E_NAMEOF(P3E), "update phase");
+	P3E::Logger::Info("INIT SUCCESS !!", P3E::KLoggerOwner::Program);
+
+	P3E::Logger::Info("UPDATE STAGE", P3E::KLoggerOwner::Program);
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 	}
 
-	P3E::Log(P3E_NAMEOF(P3E), "termination phase");
+	P3E::Logger::Info("FREE RESOURCES STAGE", P3E::KLoggerOwner::Program);
 	glfwDestroyWindow(window);
 	glfwTerminate();
-	P3E::Log(P3E_NAMEOF(P3E), "terminate success");
+	P3E::Logger::Info("FREE RESOURCES SUCCESS !!", P3E::KLoggerOwner::Program);
 
-	P3E::Log(P3E_NAMEOF(P3E), "shutdown phase");
-	P3E::Log(P3E_NAMEOF(P3E), "shutdown success");
+	P3E::Logger::Info("SHUTDOWN STAGE", P3E::KLoggerOwner::Program);
+	P3E::Logger::Info("SHUTDOWN STAGE SUCCESS !!", P3E::KLoggerOwner::Program);
 
 	return 0;
 }
