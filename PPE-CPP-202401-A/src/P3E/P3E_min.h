@@ -60,12 +60,6 @@ namespace P3E {
 
     class KLoggerOwner {
     public:
-        KLoggerOwner(std::string arg_name) {
-            _ownerName = arg_name;
-        }
-    private:
-        std::string _ownerName = "";
-    public:
         inline static const std::string Program = "Program";
         inline static const std::string GLFW = "GLFW";
         inline static const std::string P3E = "P3E";
@@ -150,10 +144,13 @@ namespace P3E {
     // Loging basic information of program
     static void P3E_Init() {
         //Log(P3E_NAMEOF(P3E), "Welcome to P3E program development !!");
-        Logger::Info("Welcome to P3E program development !!", KLoggerOwner::P3E);
+        Logger::None("===============================================================");
+        Logger::None("Welcome to P3E program development !!");
         Logger::None("P3E - Priority Performer Program Engine");
         Logger::None("By P3E FOUNDATION & VIOLETTALAPPY");
-        Logger::None("Source code licensed under Apache2");
+        Logger::None("Licensed under Apache2.");
+        Logger::None("Remember to read License Agreement for P3E.");
+        Logger::None("===============================================================");
         Logger::Info("It will shortly start now !!", KLoggerOwner::P3E);
         Logger::Info("information will be listed below: ", KLoggerOwner::P3E);
         std::string versionMSG = "Version = " + K_VERSIONNAME;
@@ -330,13 +327,25 @@ namespace P3E {
     // Save detailed reports to error.txt
     class KErrorCode {
     public:
-        int GLFW_INIT_FAILED = -1;
-        int GLFW_CREATE_WINDOW_FAILED = -1;
-        int GLEW_INIT_FAILED = -1;
-        int P3E_PROGRAMCONFIG_SAVE_FAILED = -1;
-        int P3E_PROGRAMCONFIG_LOAD_FAILED = -1;
-        int P3E_CONTROLLERCONFIG_SAVE_FAILED = -1;
-        int P3E_CONTROLLERCONFIG_LOAD_FAILED = -1;
+    public:
+        inline static const int GLFW_InitFailed() {
+            Logger::Error("init failed !!", KLoggerOwner::GLFW);
+            return -1;
+        };
+        inline static const int GLFW_CreateWindowFailed() {
+            Logger::Error("create window failed !!", KLoggerOwner::GLFW);
+            return -1;
+        };
+        int GLEW_InitFailed = -1;
+        inline static const int P3E_ProgramConfigNotFound() {
+            Logger::Error("ProgramConfig file path not found !!", KLoggerOwner::P3E_ProgramConfig);
+            return -1;
+        };
+        int P3E_ProgramConfigSaveFailed = -1;
+        int P3E_ProgramConfigLoadFailed = -1;
+        int P3E_ControllerConfigNotFound = -1;
+        int P3E_ControllerConfigSaveFailed = -1;
+        int P3E_ControllerConfigLoadFailed = -1;
     };
 
     /* VALUE RANGE */
