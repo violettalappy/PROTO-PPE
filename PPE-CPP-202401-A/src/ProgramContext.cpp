@@ -33,14 +33,19 @@ int ProgramContext::Init() {
 }
 
 int ProgramContext::Run() {
-    P3E::Logger::Info("run in progress...", P3E::KLoggerOwner::Program);
+    P3E::Logger::Info("run loop in progress...", P3E::KLoggerOwner::Program);
+
+    int i = P3E::KErrorCode::GLFW_InitFailed();
 
     while (!glfwWindowShouldClose(_window)) {
-        //program.Run();
+        // process input
+        // update
+        // render
+        // game
         glfwPollEvents();
     }
 
-    P3E::Logger::Info("run success !!", P3E::KLoggerOwner::Program);
+    P3E::Logger::Info("run end success !!", P3E::KLoggerOwner::Program);
 
     return 0;
 }
@@ -48,8 +53,12 @@ int ProgramContext::Run() {
 int ProgramContext::Close() {
     P3E::Logger::Info("close in progress...", P3E::KLoggerOwner::Program);
 
+    P3E::Logger::Info("destroy window in progress...", P3E::KLoggerOwner::GLFW);
     glfwDestroyWindow(_window);
+    P3E::Logger::Info("destroy window success !!", P3E::KLoggerOwner::GLFW);
+    P3E::Logger::Info("terminate in progress...", P3E::KLoggerOwner::GLFW);
     glfwTerminate();
+    P3E::Logger::Info("terminate success !!", P3E::KLoggerOwner::GLFW);
 
     P3E::Logger::Info("close success !!", P3E::KLoggerOwner::Program);
 
