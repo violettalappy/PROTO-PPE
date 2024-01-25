@@ -46,10 +46,15 @@ namespace P3E {
     const std::string K_LOGGER_FILEPATH = "\\log.txt";
     const std::string K_ERRORREPORT_FILEPATH = "\\error.txt";
     const std::string K_PROGRAMCONFIG_FILEPATH = "\\configs\\config.xml";
+    const std::string K_CONTROLLERCONFIG_FILEPATH = "\\configs\\controller.xml";
 #elif defined(__linux__)
     const std::string K_VERSIONNAME = "P3E_0.0.0-Linux";
     const std::string K_PLATFORM = "Linux";
-    const std::string K_PROGRAMCONFIG_FILEPATH = "/configs/config.xml";
+    //TODO Remember to fix file paths
+    const std::string K_LOGGER_FILEPATH = "\\log.txt";
+    const std::string K_ERRORREPORT_FILEPATH = "\\error.txt";
+    const std::string K_PROGRAMCONFIG_FILEPATH = "\\configs\\config.xml";
+    const std::string K_CONTROLLERCONFIG_FILEPATH = "\\configs\\controller.xml";
 #endif
 
     class KLoggerOwner {
@@ -64,6 +69,7 @@ namespace P3E {
         inline static const std::string GLFW = "GLFW";
         inline static const std::string P3E = "P3E";
         inline static const std::string P3E_ProgramConfig = "P3E_ProgramConfig";
+        inline static const std::string P3E_ControllerConfig = "P3E_ControllerConfig";
         //inline static const std::string AudioProgram = "AudioProgram";
         //inline static const std::string GameProgram = "GameProgram";
         //inline static const std::string P3E_GUI = "P3E_GUI";
@@ -145,24 +151,22 @@ namespace P3E {
         //Log(P3E_NAMEOF(P3E), "Welcome to P3E program development !!");
         Logger::Info("Welcome to P3E program development !!", KLoggerOwner::P3E);
         Logger::None("P3E - Priority Performer Program Engine");
-        Logger::None("  ^ ^ ");
-        Logger::None(" (O,O)");
-        Logger::None(" (   )");
-        Logger::None("- v-v --------"";");
         Logger::None("By P3E FOUNDATION & VIOLETTALAPPY");
         Logger::None("Source code licensed under Apache2");
         Logger::Info("It will shortly start now !!", KLoggerOwner::P3E);
-        Logger::Info("display P3E specs", KLoggerOwner::P3E);
+        Logger::Info("information will be listed below: ", KLoggerOwner::P3E);
         std::string versionMSG = "Version = " + K_VERSIONNAME;
         Logger::Info(versionMSG, KLoggerOwner::P3E);
         std::string platformMSG = "Platform = " + K_PLATFORM;
         Logger::Info(platformMSG, KLoggerOwner::P3E);
         std::string loggerFilePath = "LoggerFilePath = " + H_FS::current_path().string() + K_LOGGER_FILEPATH;
         Logger::Info(loggerFilePath, KLoggerOwner::P3E);
-        std::string errorReportFilePath = "LoggerFilePath = " + H_FS::current_path().string() + K_ERRORREPORT_FILEPATH;
+        std::string errorReportFilePath = "ErrorReportFilePath = " + H_FS::current_path().string() + K_ERRORREPORT_FILEPATH;
         Logger::Info(errorReportFilePath, KLoggerOwner::P3E);
         std::string pcfbMSG = "ProgramConfigFilePath = " + H_FS::current_path().string() + K_PROGRAMCONFIG_FILEPATH;
         Logger::Info(pcfbMSG, KLoggerOwner::P3E);
+        std::string ccMSG = "ControllerConfigFilePath = " + H_FS::current_path().string() + K_CONTROLLERCONFIG_FILEPATH;
+        Logger::Info(ccMSG, KLoggerOwner::P3E);
         Logger::Info("init success !!", KLoggerOwner::P3E);
     }
 
@@ -173,9 +177,33 @@ namespace P3E {
         const float K_DEG2RAD = K_PI / 180.0f;
         const float K_RAD2DEG = 180.0f / K_PI;
     public:
-        static float ConvertKMHToMPH(float arg_kmh) {
+        static float ToMPH(float arg_kmh) {
+            float result = 0.0f;
+            return result;
         }
-        static float ConvertMPHToKMH(float arg_mph) {
+        static float ToKMH(float arg_mph) {
+            float result = 0.0f;
+            return result;
+        }
+        static float Clamp(float arg_value, float arg_min, float arg_max) {
+            float result = (arg_value < arg_min) ? arg_min : arg_value;
+            if (result > arg_max) {
+                result = arg_max;
+            }
+            return result;
+        }
+        static float Lerp(float arg_start, float arg_end, float arg_amount) {
+            float result = arg_start + arg_amount * (arg_end - arg_start);
+            return result;
+        }
+        // TODO Remember to add logic that normalize input value to 0 or 1
+        static float Normalize01(float arg_value) {
+            float result = 0;
+            return result;
+        }
+        static float Normalize(float arg_value, float arg_start, float arg_end) {
+            float result = (arg_value - arg_start) / (arg_end - arg_start);
+            return result;
         }
     };
 
@@ -184,6 +212,11 @@ namespace P3E {
     class ProgramConfig {
     public:
         ProgramConfig() {
+        }
+        ~ProgramConfig() {
+        }
+        void Init() {
+            Logger::Info("init", KLoggerOwner::P3E_ProgramConfig);
             bool isLoadConfigSuccess = false;
             if (isLoadConfigSuccess) {
                 // Log all specs from programconfig at the end
@@ -196,8 +229,6 @@ namespace P3E {
                 LogProgramConfigInfo();
             }
         }
-        ~ProgramConfig() {
-        }
         void ResetToDefault() {
             Logger::Info("reset to default settings !!", KLoggerOwner::P3E_ProgramConfig);
             SetProgramTitle("LearnWebGPU");
@@ -206,7 +237,7 @@ namespace P3E {
             SetScreenHeight(600);
         }
         void LogProgramConfigInfo() {
-            Logger::Info("display programconfig specs", KLoggerOwner::P3E_ProgramConfig);
+            Logger::Info("information will be listed below: ", KLoggerOwner::P3E_ProgramConfig);
             std::string programFullTitle = "ProgramFullTitle = " + GetProgramFullTitle();
             Logger::Info(programFullTitle, KLoggerOwner::P3E_ProgramConfig);
             std::string programTitle = "ProgramTitle = " + GetProgramTitle();
@@ -226,6 +257,22 @@ namespace P3E {
         int _screenWidth = 800;
         int _screenHeight = 600;
     public:
+        void Save() {
+            if (true) {
+                Logger::Info("save success in PROGRAMCONFIG_PATHFILE", KLoggerOwner::P3E_ProgramConfig);
+            }
+            else {
+                Logger::Fatal("save failed !!", KLoggerOwner::P3E_ProgramConfig);
+            }
+        }
+        void Load() {
+            if (true) {
+                Logger::Info("load success from PROGRAMCONFIG_PATHFILE", KLoggerOwner::P3E_ProgramConfig);
+            }
+            else {
+                Logger::Fatal("load failed !!", KLoggerOwner::P3E_ProgramConfig);
+            }
+        }
         std::string GetProgramFullTitle() {
             return GetProgramTitle() + "-" + GetProgramVersion();
         }
@@ -258,22 +305,132 @@ namespace P3E {
         }
     };
 
+    /* ControllerConfig */
+    // ? Customize how program work
+    class ControllerConfig {
+    public:
+        ControllerConfig() {
+        }
+        ~ControllerConfig() {
+        }
+        void Init() {
+            Logger::Info("init", KLoggerOwner::P3E_ControllerConfig);
+        }
+        void ResetToDefault() {
+            Logger::Info("reset to default settings !!", KLoggerOwner::P3E_ControllerConfig);
+        }
+        void LogInfo() {
+            Logger::Info("information will be listed below: ", KLoggerOwner::P3E_ControllerConfig);
+        }
+    };
+
     /* P3E EXCEPTION */
     // Only applied to fatal and error reports
     // Save detailed reports to error.txt
-    class Exception {
+    class KErrorCode {
     public:
-        bool NoWritePermitToProgramConfig() {
-            return true;
+        int GLFW_INIT_FAILED = -1;
+        int GLFW_CREATE_WINDOW_FAILED = -1;
+        int GLEW_INIT_FAILED = -1;
+        int P3E_PROGRAMCONFIG_SAVE_FAILED = -1;
+        int P3E_PROGRAMCONFIG_LOAD_FAILED = -1;
+        int P3E_CONTROLLERCONFIG_SAVE_FAILED = -1;
+        int P3E_CONTROLLERCONFIG_LOAD_FAILED = -1;
+    };
+
+    /* VALUE RANGE */
+    // Define most problem
+    // TODO Check for system min value
+    class ProgramValueRange {
+        ProgramValueRange(float arg_value, float arg_defaultValue, float arg_min, float arg_max, float arg_systemMin = FLT_MIN, float arg_systemMax = FLT_MAX) {
+            value = arg_value;
+            defaultValue = arg_defaultValue;
+            min = arg_min;
+            max = arg_max;
+            systemMin = arg_systemMin;
+            systemMax = arg_systemMax;
         }
-        bool NoProgramConfigFile() {
-            return true;
+    public:
+        float value = 0;
+        float defaultValue = 0;
+        float min = 0;
+        float max = 0;
+        float systemMin = FLT_MIN;
+        float systemMax = FLT_MAX;
+    public:
+        void SetValue() {
         }
-        bool UnableToAccessProgramConfig() {
-            return true;
+        void SetDefaultValue() {
         }
-        bool LoadProgramConfigFail() {
-            return true;
+        void SetMin() {
+        }
+        void SetMax() {
+        }
+        void SetSystemMin() {
+        }
+        void SetSystemMax() {
+        }
+    };
+
+    // Include percentage modifier
+    class GameValueRange {
+        GameValueRange(float arg_value, float arg_defaultValue, float arg_min, float arg_max, float arg_systemMin = FLT_MIN, float arg_systemMax = FLT_MAX) {
+            _value = arg_value;
+            _defaultValue = arg_defaultValue;
+            _valueMin = arg_min;
+            _valueMax = arg_max;
+            _systemMin = arg_systemMin;
+            _systemMax = arg_systemMax;
+        }
+    private:
+        float _value = 0.0f;
+        float _defaultValue = 0.0f;
+        float _valueMin = 0.0f;
+        float _valueMax = 0.0f;
+        float _systemMin = FLT_MIN;
+        float _systemMax = FLT_MAX;
+    public:
+        float GetValue() {
+            return _value;
+        }
+        float GetDefaultValue() {
+            return _defaultValue;
+        }
+        float GetValueMin() {
+            return _valueMin;
+        }
+        float GetValueMax() {
+            return _valueMax;
+        }
+        float GetSystemMin() {
+            return _systemMin;
+        }
+        float GetSystemMax() {
+            return _systemMax;
+        }
+        void SetValue(float arg_value) {
+            _value = arg_value;
+        }
+        void SetDefaultValue(float arg_value) {
+            _defaultValue = arg_value;
+        }
+        void SetValueMin(float arg_value) {
+            _valueMin = arg_value;
+        }
+        void SetValueMax(float arg_value) {
+            _valueMax = arg_value;
+        }
+        void SetRestraintMin() {
+        }
+        void SetRestraintMax() {
+        }
+        void SetLimitMin() {
+        }
+        void SetLimitMax() {
+        }
+        void SetSystemMin() {
+        }
+        void SetSystemMax() {
         }
     };
 }
