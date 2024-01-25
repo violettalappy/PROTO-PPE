@@ -12,6 +12,10 @@ public:
 private:
     GLFWwindow* _window;
     P3E::ProgramConfig _programConfig;
+private:
+    void _HandleInput();
+    void _Update();
+    void _Render();
 public:
     P3E::ProgramConfig GetProgramConfig() {
         return _programConfig;
