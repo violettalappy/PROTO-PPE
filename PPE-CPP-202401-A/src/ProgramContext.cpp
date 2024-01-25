@@ -12,7 +12,24 @@ void ProgramContext::Init() {
     _programConfig.Init();
 }
 
-void ProgramContext::Run() {
+int ProgramContext::Run() {
+    if (!glfwInit()) {
+        std::cerr << "Could not initialize GLFW!" << std::endl;
+        return 1;
+    }
+    P3E::Logger::Info("init success !!", P3E::KLoggerOwner::GLFW);
+    GLFWwindow* window = glfwCreateWindow(_programConfig.GetScreenWidth(), _programConfig.GetScreenHeight(), _programConfig.GetProgramFullTitle().c_str(), NULL, NULL);
+    if (!window) {
+        std::cerr << "Could not open window!" << std::endl;
+        glfwTerminate();
+        return 1;
+    }
+    P3E::Logger::Info("create window success !!", P3E::KLoggerOwner::GLFW);
+    while (!glfwWindowShouldClose(window)) {
+        //program.Run();
+        glfwPollEvents();
+    }
+    return 0;
 }
 
 void ProgramContext::Close() {
