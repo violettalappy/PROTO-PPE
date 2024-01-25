@@ -1,0 +1,77 @@
+int main(int argc, char* argv[]) {
+	P3E::Logger::Info("INIT STAGE", P3E::KLoggerOwner::Program);
+
+	P3E::P3E_Init();
+	P3E::ProgramConfig programConfig = P3E::ProgramConfig();
+	if (!glfwInit()) {
+		std::cerr << "Could not initialize GLFW!" << std::endl;
+		return 1;
+	}
+	P3E::Logger::Info("init success !!", P3E::KLoggerOwner::GLFW);
+	GLFWwindow* window = glfwCreateWindow(programConfig.GetScreenWidth(), programConfig.GetScreenHeight(), programConfig.GetProgramFullTitle().c_str(), NULL, NULL);
+	if (!window) {
+		std::cerr << "Could not open window!" << std::endl;
+		glfwTerminate();
+		return 1;
+	}
+	P3E::Logger::Info("create window success !!", P3E::KLoggerOwner::GLFW);
+
+	P3E::Logger::Info("INIT SUCCESS !!", P3E::KLoggerOwner::Program);
+
+	P3E::Logger::Info("UPDATE STAGE", P3E::KLoggerOwner::Program);
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+	}
+
+	P3E::Logger::Info("FREE RESOURCES STAGE", P3E::KLoggerOwner::Program);
+	glfwDestroyWindow(window);
+	glfwTerminate();
+	P3E::Logger::Info("FREE RESOURCES SUCCESS !!", P3E::KLoggerOwner::Program);
+
+	P3E::Logger::Info("SHUTDOWN STAGE", P3E::KLoggerOwner::Program);
+	P3E::Logger::Info("SHUTDOWN STAGE SUCCESS !!", P3E::KLoggerOwner::Program);
+
+	return 0;
+}
+
+class ProgramContext {
+public:
+	ProgramContext();
+	~ProgramContext();
+public:
+	/* ENGINE DEVELOPMENT */
+	// For engine use only
+	void Run();
+	void Shutdown();
+	
+	/* COMMON DEVELOPMENT */
+	// Place all your development here, useful for game development and other things
+	void Init();
+	void Start();
+	void Update(float arg_dt, float arg_unscaledDT);
+	void Render();
+
+	/* AUDIO DEVELOPMENT */
+	void PrepareToPlay(double arg_sampleRate, int arg_samplesPerBlock);
+	void ReleaseResources();
+	void ProcessBlock(double arg_bufferSamples, float arg_midiMSG);
+};
+
+/* P3E EXCEPTION */
+    // Only applied to fatal and error reports
+    // Save detailed reports to error.txt
+    class Exception {
+    public:
+        bool NoWritePermitToProgramConfig() {
+            return true;
+        }
+        bool NoProgramConfigFile() {
+            return true;
+        }
+        bool UnableToAccessProgramConfig() {
+            return true;
+        }
+        bool LoadProgramConfigFail() {
+            return true;
+        }
+    };
