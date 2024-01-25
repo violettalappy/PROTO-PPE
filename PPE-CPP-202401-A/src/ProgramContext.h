@@ -10,14 +10,15 @@ public:
     ProgramContext();
     ~ProgramContext();
 private:
+    GLFWwindow* _window;
     P3E::ProgramConfig _programConfig;
 public:
     P3E::ProgramConfig GetProgramConfig() {
         return _programConfig;
     }
-    void Init();
+    int Init();
     int Run();
-    void Close();
+    int Close();
     // void AddWindow();
 };
 
