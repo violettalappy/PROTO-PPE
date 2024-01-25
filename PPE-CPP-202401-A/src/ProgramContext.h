@@ -16,7 +16,7 @@ public:
         return _programConfig;
     }
     void Init();
-    void Run();
+    int Run();
     void Close();
     // void AddWindow();
 };
