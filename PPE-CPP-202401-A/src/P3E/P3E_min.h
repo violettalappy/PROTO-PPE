@@ -36,6 +36,7 @@ namespace H_FS = std::filesystem;
 #define P3E_NAMEOF(name) #name
 
 namespace P3E {
+
     const int K_VERSION_MAJOR = 0;
     const int K_VERSION_MINOR = 0;
     const int K_VERSION_PATCH = 0;
