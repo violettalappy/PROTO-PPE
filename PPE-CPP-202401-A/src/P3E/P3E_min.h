@@ -15,6 +15,12 @@ limitations under the License.
 
 /*
 Priority Performer Program Engine - P3E
+C++20
+*/
+
+/*
+Learning Resources in case something wrong in compiler or C++ hate me
+https://stackoverflow.com/questions/1563897/how-can-you-define-a-static-data-member-of-type-const-stdstring
 */
 
 #ifndef P3E_H
@@ -34,69 +40,143 @@ namespace P3E {
     const int K_VERSION_MINOR = 0;
     const int K_VERSION_PATCH = 0;
 #ifdef _WIN32
-    const std::string K_VERSIONNAME = "P3E_0.0.0-Win64";
-    //TODO Remember fixing this path
-    const std::string K_PROGRAMCONFIG_FILEPATH = "\configs""\config.xml";
+    const std::string K_VERSIONNAME = "P3E_0.0.0";
+    const std::string K_PLATFORM = "Win64";
+    //TODO Remember to fix file paths
+    const std::string K_LOGGER_FILEPATH = "\\log.txt";
+    const std::string K_ERRORREPORT_FILEPATH = "\\error.txt";
+    const std::string K_PROGRAMCONFIG_FILEPATH = "\\configs\\config.xml";
 #elif defined(__linux__)
     const std::string K_VERSIONNAME = "P3E_0.0.0-Linux";
-    const std::string K_PROGRAMCONFIG_FILEPATH = "\configs""\config.xml";
+    const std::string K_PLATFORM = "Linux";
+    const std::string K_PROGRAMCONFIG_FILEPATH = "/configs/config.xml";
 #endif
 
-    /* API DECLEARATION */
-    static void Info(std::string arg_title, std::string arg_msg, bool isIncludeTime = true, bool canLogToFile = true);
-    static void Log(std::string arg_title, std::string arg_msg, bool isIncludeTime = true, bool canLogToFile = true);
-    static void Warn(std::string arg_title, std::string arg_msg, bool isIncludeTime = true, bool canLogToFile = true);
-    static void Fatal(std::string arg_title, std::string arg_msg, bool isIncludeTime = true, bool canLogToFile = true);
-    static void Error(std::string arg_title, std::string arg_msg, bool isIncludeTime = true, bool canLogToFile = true);
-
-    // ? Initialize P3E system header
-    // Loging basic information of program
-    static void Init() {
-        Log(P3E_NAMEOF(P3E), "Welcome to P3E program development !!");
-        Log(P3E_NAMEOF(P3E), "It will shortly start now !!");
-        Log(P3E_NAMEOF(P3E), "  ^ ^ ");
-        Log(P3E_NAMEOF(P3E), " (O,O)");
-        Log(P3E_NAMEOF(P3E), " (   )  P3E_BY_VIOLETTALAPPY");
-        Log(P3E_NAMEOF(P3E), "- v-v --------"";");
-        Info(P3E_NAMEOF(P3E), "display P3E specs");
-        std::string versionMSG = "Version = " + K_VERSIONNAME;
-        Log(P3E_NAMEOF(P3E), versionMSG);
-        std::string pcfbMSG = "ProgramConfigFilePath = " + H_FS::current_path().string() + K_PROGRAMCONFIG_FILEPATH;
-        Log(P3E_NAMEOF(P3E), pcfbMSG);
-        Log(P3E_NAMEOF(P3E), "init phase");
-    }
+    class KLoggerOwner {
+    public:
+        KLoggerOwner(std::string arg_name) {
+            _ownerName = arg_name;
+        }
+    private:
+        std::string _ownerName = "";
+    public:
+        inline static const std::string Program = "Program";
+        inline static const std::string GLFW = "GLFW";
+        inline static const std::string P3E = "P3E";
+        inline static const std::string P3E_ProgramConfig = "P3E_ProgramConfig";
+        //inline static const std::string AudioProgram = "AudioProgram";
+        //inline static const std::string GameProgram = "GameProgram";
+        //inline static const std::string P3E_GUI = "P3E_GUI";
+        //inline static const std::string P3E_SaveData = "P3E_SaveData";
+        // Add your custom tag below here
+    };
 
     /* LOGGER */
-    // ? Loging all program behaviors
+    // ? Log messages to console and txt
+    // Use KLoggerOwner for asigning owners
+    // Severity Order: log > info > warn > fatal > error
+    // TODO Add filters when needed
     // ! DO NOT LOG IN UPDATE EVERY FRAME
     // TODO Design fallback system in case not allow to access log file
     // TODO Design fallback system in case unable to access/ write to log file
     // TODO Use printf
-    void Info(std::string arg_title, std::string arg_msg, bool isIncludeTime, bool canLogToFile) {
-        std::cout << "> INFO: " << arg_title << ": " << arg_msg << std::endl;
-    }
-    void Log(std::string arg_title, std::string arg_msg, bool isIncludeTime, bool canLogToFile) {
-        std::cout << "> " << arg_title << ": " << arg_msg << std::endl;
-    }
-    void Warn(std::string arg_title, std::string arg_msg, bool isIncludeTime, bool canLogToFile) {
-        std::cout << "> WARNING: " << arg_title << ": " << arg_msg << std::endl;
-    }
-    void Fatal(std::string arg_title, std::string arg_msg, bool isIncludeTime, bool canLogToFile) {
-        std::cout << "> FATAL: " << arg_title << ": " << arg_msg << std::endl;
-    }
-    void Error(std::string arg_title, std::string arg_msg, bool isIncludeTime, bool canLogToFile) {
-        std::cout << "> ERROR: " << arg_title << ": " << arg_msg << std::endl;
+    class Logger {
+    public:
+        bool IsIncludeTimeStamp() {
+            return false;
+        }
+        bool CanLogToFile() {
+            return false;
+        }
+    public:
+        static void None(std::string arg_msg, std::string arg_owner = "") {
+            if (arg_owner.empty()) {
+                std::cout << arg_msg << std::endl;
+            }
+            else {
+                std::cout << arg_owner << ": " << arg_msg << std::endl;
+            }
+        }
+        static void Log(std::string arg_msg, std::string arg_owner = "") {
+            if (arg_owner.empty()) {
+                std::cout << "> " << arg_msg << std::endl;
+            }
+            else {
+                std::cout << "> " << arg_owner << ": " << arg_msg << std::endl;
+            }
+        }
+        static void Info(std::string arg_msg, std::string arg_owner = "") {
+            if (arg_owner.empty()) {
+                std::cout << "> INFO: " << arg_msg << std::endl;
+            }
+            else {
+                std::cout << "> INFO: " << arg_owner << ": " << arg_msg << std::endl;
+            }
+        }
+        static void Warn(std::string arg_msg, std::string arg_owner = "") {
+            if (arg_owner.empty()) {
+                std::cout << "> WARN: " << arg_msg << std::endl;
+            }
+            else {
+                std::cout << "> WARN: " << arg_owner << ": " << arg_msg << std::endl;
+            }
+        }
+        static void Fatal(std::string arg_msg, std::string arg_owner = "") {
+            if (arg_owner.empty()) {
+                std::cout << "> FATAL: " << arg_msg << std::endl;
+            }
+            else {
+                std::cout << "> FATAL: " << arg_owner << ": " << arg_msg << std::endl;
+            }
+        }
+        static void Error(std::string arg_msg, std::string arg_owner = "") {
+            if (arg_owner.empty()) {
+                std::cout << "> ERROR: " << arg_msg << std::endl;
+            }
+            else {
+                std::cout << "> ERROR: " << arg_owner << ": " << arg_msg << std::endl;
+            }
+        }
+    };
+
+    // ? Initialize P3E system header
+    // Loging basic information of program
+    static void P3E_Init() {
+        //Log(P3E_NAMEOF(P3E), "Welcome to P3E program development !!");
+        Logger::Info("Welcome to P3E program development !!", KLoggerOwner::P3E);
+        Logger::None("P3E - Priority Performer Program Engine");
+        Logger::None("  ^ ^ ");
+        Logger::None(" (O,O)");
+        Logger::None(" (   )");
+        Logger::None("- v-v --------"";");
+        Logger::None("By P3E FOUNDATION & VIOLETTALAPPY");
+        Logger::None("Source code licensed under Apache2");
+        Logger::Info("It will shortly start now !!", KLoggerOwner::P3E);
+        Logger::Info("display P3E specs", KLoggerOwner::P3E);
+        std::string versionMSG = "Version = " + K_VERSIONNAME;
+        Logger::Info(versionMSG, KLoggerOwner::P3E);
+        std::string platformMSG = "Platform = " + K_PLATFORM;
+        Logger::Info(platformMSG, KLoggerOwner::P3E);
+        std::string loggerFilePath = "LoggerFilePath = " + H_FS::current_path().string() + K_LOGGER_FILEPATH;
+        Logger::Info(loggerFilePath, KLoggerOwner::P3E);
+        std::string errorReportFilePath = "LoggerFilePath = " + H_FS::current_path().string() + K_ERRORREPORT_FILEPATH;
+        Logger::Info(errorReportFilePath, KLoggerOwner::P3E);
+        std::string pcfbMSG = "ProgramConfigFilePath = " + H_FS::current_path().string() + K_PROGRAMCONFIG_FILEPATH;
+        Logger::Info(pcfbMSG, KLoggerOwner::P3E);
+        Logger::Info("init success !!", KLoggerOwner::P3E);
     }
 
     class Math {
     public:
         const float K_PI = 3.14159265358979323846f;
         const float K_EPSILON = 0.000001f;
-        const float K_DEG2RAD = PI / 180.0f;
-        const float K_RAD2DEG = 180.0f / PI;
+        const float K_DEG2RAD = K_PI / 180.0f;
+        const float K_RAD2DEG = 180.0f / K_PI;
     public:
-        static float mToMM(float arg_mile){ }
-        static float kmhToMPH(float arg_kmh){ }
+        static float ConvertKMHToMPH(float arg_kmh) {
+        }
+        static float ConvertMPHToKMH(float arg_mph) {
+        }
     };
 
     /* PROGRAMCONFIG */
@@ -110,7 +190,7 @@ namespace P3E {
                 LogProgramConfigInfo();
             }
             else {
-                Fatal(P3E_NAMEOF(ProgramConfig), "load config fail, emergency fallback measure !!");
+                Logger::Fatal("load config fail, emergency fallback measure !!", KLoggerOwner::P3E_ProgramConfig);
                 ResetToDefault();
                 // Log all specs from programconfig at the end
                 LogProgramConfigInfo();
@@ -119,24 +199,24 @@ namespace P3E {
         ~ProgramConfig() {
         }
         void ResetToDefault() {
-            Info(P3E_NAMEOF(ProgramConfig), "reset to default settings");
+            Logger::Info("reset to default settings !!", KLoggerOwner::P3E_ProgramConfig);
             SetProgramTitle("LearnWebGPU");
             SetProgramVersion("0.0.0");
             SetScreenWidth(800);
             SetScreenHeight(600);
         }
         void LogProgramConfigInfo() {
-            Info(P3E_NAMEOF(ProgramConfig), "display programconfig specs");
-            std::string programFTMSG = "ProgramFullTitle = " + GetProgramFullTitle();
-            Log(P3E_NAMEOF(ProgramConfig), programFTMSG);
-            std::string programTitleMSG = "ProgramTitle = " + GetProgramTitle();
-            Log(P3E_NAMEOF(ProgramConfig), programTitleMSG);
-            std::string programVersionMSG = "ProgramVersion = " + GetProgramVersion();
-            Log(P3E_NAMEOF(ProgramConfig), programVersionMSG);
-            std::string screenWidthMSG = "ScreenWidth = " + std::to_string(GetScreenWidth());
-            Log(P3E_NAMEOF(ProgramConfig), screenWidthMSG);
-            std::string screenHeightMSG = "ScreenHeight = " + std::to_string(GetScreenHeight());
-            Log(P3E_NAMEOF(ProgramConfig), screenHeightMSG);
+            Logger::Info("display programconfig specs", KLoggerOwner::P3E_ProgramConfig);
+            std::string programFullTitle = "ProgramFullTitle = " + GetProgramFullTitle();
+            Logger::Info(programFullTitle, KLoggerOwner::P3E_ProgramConfig);
+            std::string programTitle = "ProgramTitle = " + GetProgramTitle();
+            Logger::Info(programTitle, KLoggerOwner::P3E_ProgramConfig);
+            std::string programVersion = "ProgramVersion = " + GetProgramVersion();
+            Logger::Info(programVersion, KLoggerOwner::P3E_ProgramConfig);
+            std::string screenWidth = "ScreenWidth = " + std::to_string(GetScreenWidth());
+            Logger::Info(screenWidth, KLoggerOwner::P3E_ProgramConfig);
+            std::string screenHeight = "ScreenHeight = " + std::to_string(GetScreenHeight());
+            Logger::Info(screenHeight, KLoggerOwner::P3E_ProgramConfig);
         }
     private:
         std::string _programFullTitle = "";
