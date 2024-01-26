@@ -1,6 +1,10 @@
 # Introduction
 
-- Most important features and all in one is available via PPE.h
+- Most important features and all in one is available via P3E.h
+
+# Packages
+- webgpu-native (Firefox)
+- DearImgui 10.91-docking version
 
 # Features
 
