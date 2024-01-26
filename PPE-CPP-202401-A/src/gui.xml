@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<object id="Canvas" class="Canvas" style="width-1920 height-1080 maxWidth-1920 maxHeight-1080 minWidth-640 minHeight-480 posX-0 posY-0 posZ-0 rotateX-0 rotateY-0 rotateZ-0 scaleX-1 scaleY-1 scaleZ-1 text-dark-50 font-size-m">
+
+		<object id="MainMenu" class="Image" style="width-1920 height-1080 posX-0 posY-0 posZ-0 rotateX-0 rotateY-0 rotateZ-0 scaleX-1 scaleY-1 scaleZ-1 align-left">
+			
+			<object id="MainMenuTitle" class="Label" style="posX-0 posY-0 posZ-0 posW-0 text-dark-50 font-s">
+				<property class="content">@{programTitle}</property>
+			</object>
+			
+			<object id="MainMenuButtonLayout" class="VBox">
+				<child>
+					<object id="StartGame" class="Button" style="bg-white-90 text-dark-50 font-m">
+						<property class="content">Start Game</property>
+					</object>
+				</child>
+				<child>
+					<object id="ExitGame" class="Button" signal="OnExitGamePress" style="posX-0 posY-0 posZ-0 posW-0 text-dark-50 font-m">
+						<property class="content">ExitGame</property>
+					</object>
+				</child>
+			</object>
+			
+		</object>
+
+	</object>
+</document>
+
+<!-- 
+Copyright (C) 2024 ViolettaLappy
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!-- 
+Please design according to your needs
+
+<style></style>
+<signal></signal>
+vbox, hbox, grid, freeform
+<child><child>
+
+All GUI should be designed for following size: 1920x1080, 1280x720, 800x600, 640x320
+
+EXAMPLES: How to use certain tags
+
+Based on GTK Glade
+-->
