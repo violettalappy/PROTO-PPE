@@ -46,11 +46,13 @@ opengl32.lib
 
 # 3RDPARTY Libraries
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw")
+#add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/webgpu")
 
 target_link_libraries(${PROJECT_NAME} 
 PRIVATE ${1STPARTY_LIB} 
 PRIVATE ${3RDPARTY_LIB}
 PRIVATE glfw
+# PRIVATE webgpu
 )
 
 # TODO: why the heck does it need to specify if CMake is greater than 3.12
@@ -79,3 +81,8 @@ if(XCODE)
 endif()
 
 # TODO: Add tests and install targets if needed.
+
+# The application's binary must find wgpu.dll or libwgpu.so at runtime,
+# so we automatically copy it (it's called WGPU_RUNTIME_LIB in general)
+# next to the binary.
+# target_copy_webgpu_binaries(App)
